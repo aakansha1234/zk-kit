@@ -146,6 +146,16 @@ describe("Lean IMT", () => {
 
             expect(tree.root).toBe(roots[0])
         })
+
+        it(`Should not insert ${treeSize} leaves`, () => {
+            const tree = new LeanIMT(poseidon)
+
+            tree.insert(BigInt(2))
+            const fun = () => tree.insert(BigInt(2))
+            expect(fun).toThrow("Leaf already present")
+        })
+
+
     })
 
     describe("# insertMany", () => {
@@ -179,6 +189,16 @@ describe("Lean IMT", () => {
             tree.insertMany(leaves)
 
             expect(tree.root).toBe(roots[0])
+        })
+
+        it(`Should not insert ${treeSize} leaves again`, () => {
+            const tree = new LeanIMT(poseidon)
+
+            tree.insertMany(leaves)
+
+            const fun = () => tree.insertMany([BigInt(3), BigInt(4), BigInt(5), BigInt(6), BigInt(7)])
+
+            expect(fun).toThrow("Leaves already present")
         })
     })
 
@@ -377,8 +397,8 @@ describe("Lean IMT", () => {
 
             tree2.import(exportedTree)
 
-            tree1.insert(BigInt(4))
-            tree2.insert(BigInt(4))
+            tree1.insert(BigInt(5))
+            tree2.insert(BigInt(5))
 
             expect(tree2.depth).toBe(tree1.depth)
             expect(tree2.size).toBe(tree1.size)

@@ -116,6 +116,10 @@ export default class LeanIMT<N = bigint> {
     public insert(leaf: N) {
         requireDefinedParameter(leaf, "leaf")
 
+        if (this.has(leaf)) {
+            throw new Error("Leaf already present")
+        }
+
         // If the next depth is greater, a new tree level will be added.
         if (this.depth < Math.ceil(Math.log2(this.size + 1))) {
             // Adding an array is like adding a new level.
@@ -159,6 +163,12 @@ export default class LeanIMT<N = bigint> {
 
         if (leaves.length === 0) {
             throw new Error("There are no leaves to add")
+        }
+
+        for (let i = 0; i < leaves.length; i += 1) {
+            if (this.has(leaves[i])) {
+                throw new Error("Leaves already present")
+            }
         }
 
         let startIndex = this.size >> 1
