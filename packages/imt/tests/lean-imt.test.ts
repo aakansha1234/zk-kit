@@ -147,7 +147,7 @@ describe("Lean IMT", () => {
             expect(tree.root).toBe(roots[0])
         })
 
-        it(`Should not insert ${treeSize} leaves`, () => {
+        it(`Should not insert the leaf again if already present`, () => {
             const tree = new LeanIMT(poseidon)
 
             tree.insert(BigInt(2))
@@ -191,7 +191,7 @@ describe("Lean IMT", () => {
             expect(tree.root).toBe(roots[0])
         })
 
-        it(`Should not insert ${treeSize} leaves again`, () => {
+        it(`Should not insert the leaves again if already present`, () => {
             const tree = new LeanIMT(poseidon)
 
             tree.insertMany(leaves)
